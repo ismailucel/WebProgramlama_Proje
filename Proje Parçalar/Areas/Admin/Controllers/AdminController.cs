@@ -29,7 +29,7 @@ namespace G201210352.Areas.Admin.Controllers
         public async Task<IActionResult> OrderList()
         {
             List<Basket> basket = await _context.Basket
-                .Where(b => b.Active == false && b.Status == "Cargo")
+                .Where(b => b.Active == false && b.Status == "KARGO")
                 .Include(b => b.ApplicationUser)
                 .ToListAsync();
 

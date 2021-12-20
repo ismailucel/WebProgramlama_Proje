@@ -19,11 +19,13 @@ namespace G201210352.Areas.Customer.Controllers
     public class BasketsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
+        //private readonly UserManager<ApplicationUser> _userManager;
         private readonly IStringLocalizer<BasketsController> _localizer;
-        public BasketsController(ApplicationDbContext context)
+        public BasketsController(ApplicationDbContext context,/* UserManager<ApplicationUser> userManager, */IStringLocalizer<BasketsController> localizer)
         {
             _context = context;
+            //_userManager = userManager;
+            _localizer = localizer;
         }
 
         // GET: Customer/Baskets
@@ -39,7 +41,7 @@ namespace G201210352.Areas.Customer.Controllers
                 {
                     Status = "New",
                     Active = true,
-                    ApplicationUser = await _userManager.GetUserAsync(User)
+                    //ApplicationUser = await _userManager.GetUserAsync(User)
                 };
 
                 _context.Add(newBasket);
@@ -95,8 +97,9 @@ namespace G201210352.Areas.Customer.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> BuyBooks(int? basketId)
+        public async Task<IActionResult> BuySongs(int? basketId)
         {
             Basket basket = await _context.Basket
                 .Where(x => x.Id == basketId)
@@ -124,7 +127,7 @@ namespace G201210352.Areas.Customer.Controllers
 
                         TempData["SiparisMesaj"] = _localizer["SiparisMesaj1"]
                             + _song.SongName;
-                        return RedirectToAction("Index", "Baskets");
+                        return RedirectToAction("Index", "Baskets" ,new { area = "Customer" });
                     }
 
                     _song.Stock = _song.Stock - 1;
@@ -138,7 +141,7 @@ namespace G201210352.Areas.Customer.Controllers
             }
 
             TempData["SiparisMesaj"] = _localizer.GetString("SiparisMesaj2") + basketId;
-            return RedirectToAction("Index", "Baskets");
+            return RedirectToAction("Index", "Baskets", new { area = "Customer" });
         }
 
 
