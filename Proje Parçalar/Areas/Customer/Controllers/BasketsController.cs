@@ -41,7 +41,7 @@ namespace G201210352.Areas.Customer.Controllers
                 {
                     Status = "New",
                     Active = true,
-                    //ApplicationUser = await _userManager.GetUserAsync(User)
+                    CustomerId = User.FindFirstValue(ClaimTypes.NameIdentifier)
                 };
 
                 _context.Add(newBasket);
