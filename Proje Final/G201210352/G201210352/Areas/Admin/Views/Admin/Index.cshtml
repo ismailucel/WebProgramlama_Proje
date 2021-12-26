@@ -1,0 +1,46 @@
+﻿@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<G201210352.lang> lang
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
+
+@{ ViewData["Title"] = lang["Baslik"].Value; }
+
+<div class="container">
+    <div class="row">
+        <div class=" col-md-6">
+            <br /> <br /> <br />
+            <form asp-controller="Songs" asp-action="Index">
+                <div class="form-group">
+                    <input type="submit" value="@lang["SarkiListeleri"]" class="btn btn-block btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-md-6">
+            <form asp-controller="Artists" asp-action="Index">
+                <div class="form-group">
+                    <input type="submit" value="@lang["SanatciListeleri"]" class="btn btn-block btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-md-6">
+            <form asp-controller="Categories" asp-action="Index">
+                <div class="form-group">
+                    <input type="submit" value="@lang["KategoriListeleri"]" class="btn btn-block btn-primary" />
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class=" col-md-6">
+            <form asp-controller="Admin" asp-action="OrderList">
+                <div class="form-group">
+                    <input type="submit" value="@lang["BekleyenSiparisler"]" class="btn btn-block btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

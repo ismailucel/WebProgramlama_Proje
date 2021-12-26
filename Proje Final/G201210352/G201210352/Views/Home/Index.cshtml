@@ -1,0 +1,38 @@
+﻿@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<G201210352.lang> lang
+@{ ViewData["Title"] = "EMusic"; }
+
+@model IEnumerable<Song>
+
+
+<section class="static about-sec">
+    <div class="container">
+        <h2>@lang["Sarkilar"]</h2>
+        <div class="recent-book-sec">
+            <div class="row">
+                @if (Model.Any())
+                {
+    @foreach (var _song in Model)
+    {
+@if (_song.Active == true)
+{
+<div class="block2">
+    <div class="block2-pic hov-img0 m-all--3 p-all-3">
+        <img class="icon-heart1 dis-block trans-04 m-all--10 p-all-10" src="~/images/@_song.FirstPhoto" style="height:350px; width:350px;" />
+        <h3><a class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 m-all--10 p-all-10" asp-controller="Home" asp-action="SongDetails" asp-route-searchId="@_song.Id">@_song.SongName</a></h3>
+        <h6><span class="stext-105 cl3">@_song.Price @lang["Birim"]</span> / <a asp-controller="Home" asp-action="SongDetails" asp-route-searchId="@_song.Id">@lang["SatınAl"]</a></h6>
+    </div>
+</div>}} }
+else
+{
+<p style="margin-left:50px;">@lang["SarkiYok"]</p>}
+
+                @if (Model.Count() == 1 && Model.First().Active == false)
+                {
+            <p style="margin-left:50px;">@lang["SarkiYok"]</p>}
+            </div>
+        </div>
+    </div>
+</section>
+
+

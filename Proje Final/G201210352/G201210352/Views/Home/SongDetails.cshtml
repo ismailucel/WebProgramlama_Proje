@@ -1,0 +1,116 @@
+﻿@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<G201210352.lang> lang
+
+
+@model IEnumerable<Song>
+@{var count = 0; var song1 = Model.Last();}
+
+@{ ViewData["Title"] = "Emusic"; }
+
+<section class="sec-product-detail bg0 p-t-65 p-b-60">
+    <div class="container">
+        <h1 class="mb-4">@song1.SongName</h1>
+        <div class="row">
+            <div class="col-md-6 slider-sec">
+                <!-- main slider carousel -->
+                <div id="myCarousel" class="carousel slide">
+                    <!-- main slider carousel items -->
+                    <div class="carousel-inner">
+                        <div class="active item carousel-item" data-slide-number="0">
+                            <img src="~/images/@song1.FirstPhoto" style="height:100%;width:100%;" class="img-fluid">
+                        </div>
+                        <div class="item carousel-item" data-slide-number="1">
+                            <img src="~/images/@song1.SecondPhoto" style="height:100%;width:100%;" class="img-fluid">
+                        </div>
+                        <div class="item carousel-item" data-slide-number="2">
+                            <img src="~/images/@song1.ThirdPhoto" style="height:100%;width:100%;" class="img-fluid">
+                        </div>
+                    </div>
+                    <!-- main slider carousel nav controls -->
+                    <ul class="carousel-indicators list-inline">
+                        <li class="list-inline-item active" style="border-top: 0px solid transparent!important;">
+                            <a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#myCarousel">
+                                <img src="~/images/@song1.FirstPhoto" style="height:100%;width:100%;" class="img-fluid">
+                            </a>
+                        </li>
+                        <li class="list-inline-item" style="border-top: 0px solid transparent!important;">
+                            <a id="carousel-selector-1" data-slide-to="1" data-target="#myCarousel">
+                                <img src="~/images/@song1.SecondPhoto" style="height:100%;width:100%;" class="img-fluid">
+                            </a>
+                        </li>
+                        <li class="list-inline-item" style="border-top: 0px solid transparent!important;">
+                            <a id="carousel-selector-2" data-slide-to="2" data-target="#myCarousel">
+                                <img src="~/images/@song1.ThirdPhoto" style="height:100%;width:100%;" class="img-fluid">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--/main slider carousel-->
+            </div>
+            <div class="col-md-6 slider-content">
+                <p>@song1.Description</p>
+                <ul>
+                    <li>
+                        <span class="name">Stok</span><span class="clm">:</span>
+                        <span class="price" style="text-decoration: none;">@song1.Stock</span>
+                    </li>
+                    <li>
+                        <span class="name">Fiyat</span><span class="clm">:</span>
+                        <span class="price">@(song1.Price * 2) TL</span>
+                    </li>
+                    <li>
+                        <span class="name">@lang["IndirimliFiyat"]</span><span class="clm">:</span>
+                        <span class="price final">@song1.Price @lang["Birim"]</span>
+                    </li>
+                    <li><span class="save-cost">@lang["Kar"] : @song1.Price @lang["Birim"] (%50)</span></li>
+                </ul>
+                @if (song1.Stock != 0)
+                {
+    @if (this.User.Identity.IsAuthenticated)
+    {
+<form asp-controller="Home" asp-action="AddSongToBasket" method="post">
+    <div class="btn-sec">
+        <button name="songId" value="@song1.Id" class="btn black">@lang["SepeteEkle"]</button>
+    </div>
+</form> }
+                else
+                {
+<div class="btn-sec">
+    @lang["Uyari"]
+</div>} }
+                else
+                {
+    <div class="btn-sec">
+        @lang["StokDurumu"]
+    </div>}
+            </div>
+        </div>
+    </div>
+</section>
+<section class="related-books">
+    <div class="container">
+        <div class="recomended-sec">
+            <h2>@lang["DigerSarkilar"]</h2>
+            <div class="row">
+                @foreach (var song in Model)
+                {
+    @if (count != Model.Count() - 1)
+    {
+
+<div class="col-lg-3 col-md-6">
+    <div class="item">
+        <img src="~/images/@song.FirstPhoto" style="height:150px;" class="img-responsive">
+        <h3>@song.SongName</h3>
+        <h6><span class="price">@song.Price TL</span></h6>
+        <div class="hover">
+            <span><a asp-controller="Home" asp-action="SongDetails" asp-route-searchId="@song.Id"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></span>
+        </div>
+    </div>
+</div>}count++;
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+

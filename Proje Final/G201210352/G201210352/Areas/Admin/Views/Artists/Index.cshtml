@@ -1,0 +1,64 @@
+﻿@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<G201210352.lang> lang
+@model IEnumerable<G201210352.Models.Artist>
+
+@{
+    ViewData["Title"] = "EMusic";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<head>
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css">
+</head>*@
+
+<section class="static about-sec">
+    <div class="container">
+        <h1>@lang["Baslik"]</h1>
+        <form asp-controller="Artists" asp-action="Create" style=" margin-bottom: 10px;" method="get">
+            <button type="submit" class="btn btn-primary">@lang["Ekle"]</button>
+        </form>
+        <table id="authorsTable" class="table table-striped table-bordered" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Active)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        @if (item.Active == true)
+                        {
+                            <td><span>@lang["Aktif"]</span></td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                <a asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info-circle"></i></a>
+                                <a asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-window-close"></i></a>
+                            </td>
+ }
+                        else
+                        {
+                            <td><span>@lang["Deaktif"]</span></td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                <a asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info-circle"></i></a>
+                                <a asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-check-square"></i></a>
+                            </td>
+}
+
+                    </tr>
+}
+            </tbody>
+        </table>
+    </div>
+</section>
+

@@ -1,0 +1,48 @@
+﻿@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<G201210352.lang> lang
+
+@model G201210352.Models.Artist
+
+@{
+    ViewData["Title"] = "EMusic";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1>@lang["Baslik"]</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="@lang["Ekle"]" class="btn btn-block btn-primary" />
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Index">
+                <div class="form-group">
+                    <input type="submit" value="@lang["ListeyeDon"]" class="btn btn-block btn-primary" />
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

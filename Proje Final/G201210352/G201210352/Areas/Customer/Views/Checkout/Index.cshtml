@@ -1,0 +1,20 @@
+﻿@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<G201210352.lang> lang
+@using Microsoft.Extensions.Options
+@inject IOptions<G201210352.Data.StripeSettings> Stripe
+
+<div class="text-center">
+    <form asp-area="Customer" asp-action="Processing" asp-controller="Checkout" method="post">
+        <h1>@lang["KartIleOde"]</h1>
+
+        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="@Stripe.Value.PublishableKey"
+                data-amount="@ViewBag.Total"
+                data-name="[Deveducate]"
+                data-description="Song payments"
+                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                data-locale="en"
+                data-zip-code="true">
+        </script>
+    </form>
+</div>

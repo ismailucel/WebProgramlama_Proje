@@ -1,0 +1,29 @@
+﻿@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<G201210352.lang> lang
+@model IEnumerable<Song>
+
+@{ ViewData["Title"] = "EMusic"; }
+
+<section class="static about-sec">
+    <div class="container">
+        <h2>EMusic</h2>
+        <div class="recent-book-sec">
+            <div class="row">
+                @if (Model.Any())
+                {
+    @foreach (var _song in Model)
+    {
+<div class="col-md-3 ml-3">
+    <div class="item">
+        <img src="~/images/@_song.FirstPhoto" class="img" />
+        <h3><a asp-controller="Home" asp-action="SongDetails" asp-route-searchId="@_song.Id">@_song.SongName</a></h3>
+        <h6><span class="price">@_song.Price @lang["Birim"]</span> / <a asp-controller="Home" asp-action="SongDetails" asp-route-searchId="@_song.Id">@lang["SatınAl"]</a></h6>
+    </div>
+</div>} }
+                else
+                {
+    <p style="margin-left:50px;">@lang["SarkiYok"]</p>}
+            </div>
+        </div>
+    </div>
+</section>
